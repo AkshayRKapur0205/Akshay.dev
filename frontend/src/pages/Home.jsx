@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+ 
 
 /* Placeholder texts for chat bot questions */
 const placeholderTexts = [
@@ -40,9 +41,15 @@ const Home = () => {
   const [cursorColor, setCursorColor] = useState("white");
 
 
-
+  /* For images of the chat bot */ 
   const images = ["/AkshayAnimeImage.png", "/AkshayKapurPhoto.jpg"];
   const [indexImage, setIndexImage] = useState(0);
+
+  /*For moving line */
+  const [lineVisible, setLineVisible] = useState(false);
+
+  /* For chalk images */ 
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleClickImage = () => {
     setIsAnimatingImage(true);
@@ -53,6 +60,36 @@ const Home = () => {
     }, 600);
     
   };
+
+  /* For the animated line */ 
+  useEffect(() => {
+    const handleScroll = () => {
+      const triggerHeight = 300;
+      if (window.scrollY > triggerHeight && !lineVisible) {
+        setLineVisible(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lineVisible]); 
+
+  /* For the new stuff visibility label */ 
+  useEffect(() => {
+    // Show on load
+    setIsVisible(true);
+
+    const handleScroll = () => {
+      if (window.scrollY <= 10) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   /* Color of cursor change */
   useEffect(() => {
@@ -114,18 +151,30 @@ const Home = () => {
   }, [charIndex, isDeleting, index]);
 
   return (
-    <div>
+    
+    <div style={{display: "flex", flexDirection: "column"}}>
+      {/* adding custom cursor */ }
         {isMovingCursor && (
             <div 
                 className={`circle-cursor ${isHovering ? "hovering" : ""}`}
-                style={{ left: `${positionCursor.x}px`, top: `${positionCursor.y}px`, borderColor: cursorColor }}
+                style={{ left: `${positionCursor.x}px`, top: `${positionCursor.y}px` }}
             />
         )}
-        <div style={{marginLeft: "50%"}}>
-            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", width: "100%", marginTop: "10%"}}>
+
+        {/* the new stuff picture */ }
+        <div>
+          <img
+            src="/new_stuff_arrow.png"
+            alt="newStuff"
+            className={`fade-in ${isVisible ? "visible" : ""}`}
+            style={{ width: "5%", height: "5%", marginTop: "5%", marginLeft: "11%"}}
+            />
+        </div>
+        <div style={{}}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", marginTop: "3%"}}>
                 <div>
-                    <h1 className="text-4xl font-bold mb-6">Hey, I'm Akshay!</h1>
-                    <p className="text-gray-400 mb-6">I build cool things with code.</p>
+                    <h1>Hey, I'm Akshay!</h1>
+                    <p>I build cool things with code.</p>
                     <div>
                         {/* Animated Text Box */}
                         <input
@@ -149,6 +198,14 @@ const Home = () => {
                                 }}
                         />
                     </div>
+                    <div style={{ display: "flex", justifyContent: "center", marginTop: "7%" }}>
+                  <img
+                    src="/scroll_to_explore.png"
+                    alt="newStuff"
+                    className={`fade-in ${isVisible ? "visible" : ""}`}
+                    style={{ width: "100px", height: "80px"}}
+                    />
+                </div>
                 </div>
 
 
@@ -163,16 +220,31 @@ const Home = () => {
                         style={{ width: "512px", height: "750px", marginLeft: "auto"}}
                         />
                 </div>
+                
             </div>
         </div>
         
-    
-
-      
-
+        {/* This is the bluf box */}
+        <div style= {{display: "flex", justifyContent: "center"}}>
+          <div className="bluf-box">
+            <div style={{justifyItems: "flex-start"}}>
+              <h1 className="tech-font">Hello World</h1>
+              <div className="animated-line-container">
+                <div className={`animated-line ${lineVisible ? "visible" : ""}`} />
+              </div>
+              <p>I'm a software engineer with hands-on experience in computer vision, AR/VR backend development, and game development, passionate about building immersive, meaningful technologies that push boundaries. I'm also deeply interested in AI/ML, natural language processing, and the evolving world of large language models. I’m driven by a love for learning and a strong desire to excel in everything I pursue, always seeking out opportunities to grow, create, and make a positive impact through innovative tech. Whether it's enhancing real-world interaction through virtual environments or unlocking new intelligence from data, I aim to be at the forefront of change. Outside the code, I enjoy growing plants, playing sports, and exploring the world—constantly inspired by new experiences and perspectives.</p>
+              
+            </div>
+          </div>
+        </div>
         
+    
+        
+
       
     </div>
+
+
   );
 };
 

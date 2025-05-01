@@ -27,37 +27,100 @@ a:hover {
 }
 
 body {
-  display: flex;
-  flex-direction: column; /* Keeps vertical flow */
-  align-items: flex-start; /* Prevents forced centering */
-  justify-content: flex-start; /* Ensures natural layout */ 
-  cursor: none; /* Hide the default cursor */
+  cursor: none;
 }
 
 .circle-cursor {
   position: fixed;
-  width: 10px; /* Adjust size of the circle */
+  width: 10px; 
   height: 10px;
-  background-color: rgba(255, 255, 255, 0.87); /* Change to any color */
+  background-color: rgba(255, 255, 255, 0.87); 
   border-radius: 50%; /* Makes it a circle */
   pointer-events: none; /* Prevents interference with clicks */
   background-color: transparent; /* Hollow inside */
-  border: 4px solid white;
+  border: 4px solid rgba(255, 255, 255, 0.87);
   transform: translate(-50%, -50%);
+  z-index: 9999;
   transition: transform 0.2s ease-in-out, border-color 0.2s ease-in-out;
 }
 /* Hover effect: Change color & increase size */
 .circle-cursor.hovering {
   transform: scale(1.5); /* Grow cursor */
-  border-color: rgb(193, 232, 232); /* Change color */
+  border-color:  rgba(255, 255, 255, 0.87);  
 }
 
+/* This fade in is for the new stuff label */ 
+.fade-in {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+}
 
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
+
+.tech-font {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+}
+
+
+h2 {
+
+}
+
+.date-font {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+
+.bluf-box {
+  background-color:transparent;
+  border: 0.125rem solid rgba(0, 0, 0, 0.2);
+  border-radius: 1.25rem;
+  padding: 4vw 6vw;
+  width: auto;
+  max-width: 60%;
+  margin-top: 5%;
+  box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  text-align: left;
+  
+}
+
+.animated-line-container {
+  width: 110%;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: .5rem;
+}
+
+.animated-line {
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.87);
+  width: 0;
+  opacity: 0;
+  transition:
+    width 1s ease-out,
+    opacity 0.5s ease-in;
+}
+
+.animated-line.visible {
+  width: 90%;
+  opacity: 1;
+}
+
+
+
+
 
 button {
   border-radius: 8px;
@@ -100,6 +163,21 @@ button:focus-visible {
 .spin-transition {
   animation: spinAndFade 0.6s ease-in-out;
 }
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
 
 
 
