@@ -56,9 +56,103 @@ body {
 }
 
 .fade-in.visible {
+  transition: opacity 1s ease-in-out;
   opacity: 1;
 }
 
+.slider {
+  display: flex;
+  justify-content: center;
+  margin-top: 2%;
+  gap: 3rem;
+  perspective: 800px; 
+}
+
+.slider_h1 {
+  color: #242424;
+  font-size: 2rem;
+  text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+  margin: 0;
+  padding: 20px;
+}
+
+.custom_slide {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  transform-origin: center center;
+  width: '15rem';
+  height: '15rem';
+  display: 'flex';
+  position: 'relative';
+  overflow: 'hidden';
+}
+
+.custom_slide:hover {
+  transform: scale(1.20) rotate(1deg);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+
+.slide-title {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+  backdrop-filter: blur(4px);
+  position: absolute;
+  bottom: 1rem;
+}
+
+
+.swiper-slide-active.custom_slide:hover {
+  transform: scale(1.4);
+  z-index: 10;
+  box-shadow: 0 10px 30px rgba(0, 159, 233, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.slider-image.animating.right {
+  transform: translateX(100%);
+  animation: slideInFromRight 0.3s forwards;
+}
+
+.slider-image.animating.left {
+  transform: translateX(-100%);
+  animation: slideInFromLeft 0.3s forwards;
+}
+
+.swiper {
+  width: 50%px;
+  height: 18rem;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15rem;
+  height: 100%;
+}
+
+@keyframes slideInFromRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInFromLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+#next, #prev {
+  position: relative;
+  z-index: 9;
+}
 
 h1 {
   font-size: 3.2em;
@@ -68,11 +162,6 @@ h1 {
 .tech-font {
   font-family: 'Inter', sans-serif;
   font-weight: 700;
-}
-
-
-h2 {
-
 }
 
 .date-font {
@@ -93,7 +182,6 @@ h2 {
   font-size: 1.1rem;
   line-height: 1.6;
   text-align: left;
-  
 }
 
 .animated-line-container {
@@ -119,27 +207,18 @@ h2 {
 }
 
 
-
-
-
-button {
+.button_slider {
+  background: transparent;
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  font-size: 2em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
 }
 button:hover {
   border-color: #646cff;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+
 
 @media (prefers-color-scheme: light) {
   :root {

@@ -1,4 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCoverflow, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+
+
+
  
 
 /* Placeholder texts for chat bot questions */
@@ -18,6 +28,54 @@ const placeholderTexts = [
     "How did Akshay integrate Computer Vision in professional projects?",
     "What are Akshay’s long-term career goals?",
     "What AI/ML tools has Akshay worked with?",
+];
+
+const slides = [
+  {
+    title: 'Tromso 2024',
+    content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit...',
+    background: '/slider_images/Tromso_2024.png', 
+  },
+  {
+    title: 'Iceland 2024',
+    content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit...',
+    background: '/slider_images/Iceland_2024.png', 
+  },
+  {
+    title: 'Tromso 2025',
+    content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit...',
+    background: '/slider_images/Tromso_2025.png',
+  },
+  {
+    title: 'PlaceHolder',
+    content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit...',
+    background: '/slider_images/placeholder.png',
+  },
+  {
+    title: 'Tromso 2024',
+    content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit...',
+    background: '/slider_images/Tromso_2024.png', 
+  },
+  {
+    title: 'Iceland 2024',
+    content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit...',
+    background: '/slider_images/Iceland_2024.png', 
+  },
+  {
+    title: 'Tromso 2024',
+    content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit...',
+    background: '/slider_images/Tromso_2024.png', 
+  },
+  {
+    title: 'Iceland 2024',
+    content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit...',
+    background: '/slider_images/Iceland_2024.png', 
+  },
+  {
+    title: 'Tromso 2025',
+    content: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit...',
+    background: '/slider_images/Tromso_2025.png',
+  },
 ];
 
 
@@ -50,6 +108,13 @@ const Home = () => {
 
   /* For chalk images */ 
   const [isVisible, setIsVisible] = useState(false);
+  const [isBlufVisible, setIsBlufVisible] = useState(false);
+
+  /* For Carousel */
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const swiperRef = useRef(null);
+
 
   const handleClickImage = () => {
     setIsAnimatingImage(true);
@@ -60,6 +125,7 @@ const Home = () => {
     }, 600);
     
   };
+  
 
   /* For the animated line */ 
   useEffect(() => {
@@ -80,10 +146,16 @@ const Home = () => {
     setIsVisible(true);
 
     const handleScroll = () => {
-      if (window.scrollY <= 10) {
+      if (window.scrollY <= 15) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
+      }
+
+      if (window.scrollY >= 25) {
+        setIsBlufVisible(true);
+      } else {
+        setIsBlufVisible(false);
       }
     };
 
@@ -95,7 +167,7 @@ const Home = () => {
   useEffect(() => {
     const handleMouseMove = (e) => {
         const hoveredElement = e.target;
-        const isInteractive = ["A", "BUTTON", "INPUT"].includes(hoveredElement.tagName);
+        const isInteractive = ["A", "BUTTON", "INPUT", "SWIPER-SLIDE"].includes(hoveredElement.tagName);
         
         const bgColor = e.backgroundColor;
 
@@ -150,6 +222,30 @@ const Home = () => {
     };
   }, [charIndex, isDeleting, index]);
 
+  
+
+  /* Carsousel stuff */
+const [directionImageSlide, setDirectionImageSlide] = useState('');
+const [isAnimatingImageSlider, setIsAnimatingSlider] = useState(false);
+
+const slideDuration = 300; 
+
+const goNextImage = () => {
+    if (isAnimatingImageSlider) return;
+    setDirectionImageSlide('right');
+    setIsAnimatingImage(true);
+    setCurrentIndexImageSlider((prevIndexImageSlider) => (prevIndexImageSlider + 1) % totalImageSlider);
+    setTimeout(() => setIsAnimatingImageSlider(false), slideDuration);
+};
+
+const goPrevImage = () => {
+    if (isAnimatingImageSlider) return;
+    setDirectionImageSlide('left');
+    setIsAnimatingImage(true);
+    setCurrentIndexImageSlider((prevIndexImageSlider) => (prevIndexImageSlider - 1 + totalImageSlider) % totalImageSlider);
+    setTimeout(() => setIsAnimatingImageSlider(false), slideDuration);
+};
+
   return (
     
     <div style={{display: "flex", flexDirection: "column"}}>
@@ -167,7 +263,7 @@ const Home = () => {
             src="/new_stuff_arrow.png"
             alt="newStuff"
             className={`fade-in ${isVisible ? "visible" : ""}`}
-            style={{ width: "5%", height: "5%", marginTop: "5%", marginLeft: "11%"}}
+            style={{ width: "5%", height: "5%", marginTop: "4%", marginLeft: "16%"}}
             />
         </div>
         <div style={{}}>
@@ -203,7 +299,7 @@ const Home = () => {
                     src="/scroll_to_explore.png"
                     alt="newStuff"
                     className={`fade-in ${isVisible ? "visible" : ""}`}
-                    style={{ width: "100px", height: "80px"}}
+                    style={{ width: "150px", height: "120px"}}
                     />
                 </div>
                 </div>
@@ -225,22 +321,104 @@ const Home = () => {
         </div>
         
         {/* This is the bluf box */}
-        <div style= {{display: "flex", justifyContent: "center"}}>
-          <div className="bluf-box">
+        <div className={`fade-in ${isBlufVisible ? "visible" : ""}`} style= {{display: "flex", justifyContent: "center"}}>
+          <div style={{backgroundImage: `url(${'country_pins.png'})`}} className="bluf-box">
             <div style={{justifyItems: "flex-start"}}>
               <h1 className="tech-font">Hello World</h1>
               <div className="animated-line-container">
                 <div className={`animated-line ${lineVisible ? "visible" : ""}`} />
               </div>
-              <p>I'm a software engineer with hands-on experience in computer vision, AR/VR backend development, and game development, passionate about building immersive, meaningful technologies that push boundaries. I'm also deeply interested in AI/ML, natural language processing, and the evolving world of large language models. I’m driven by a love for learning and a strong desire to excel in everything I pursue, always seeking out opportunities to grow, create, and make a positive impact through innovative tech. Whether it's enhancing real-world interaction through virtual environments or unlocking new intelligence from data, I aim to be at the forefront of change. Outside the code, I enjoy growing plants, playing sports, and exploring the world—constantly inspired by new experiences and perspectives.</p>
+                <p>I'm a software engineer with hands-on experience in computer vision, AR/VR backend development, and game development, passionate about building immersive, meaningful technologies that push boundaries. I'm also deeply interested in AI/ML, natural language processing, and the evolving world of large language models. I’m driven by a love for learning and a strong desire to excel in everything I pursue, always seeking out opportunities to grow, create, and make a positive impact through innovative tech. Whether it's enhancing real-world interaction through virtual environments or unlocking new intelligence from data, I aim to be at the forefront of change. Outside the code, I enjoy growing plants, playing sports, and exploring the world—constantly inspired by new experiences and perspectives.</p>
+            </div>          
               
-            </div>
           </div>
-        </div>
+
         
-    
+        </div>
+
         
 
+  
+
+        {/* Slider Carousel */}
+        <div style={{marginTop: "2rem", display:"flex", justifyContent: "center", width: "100%"}}>
+          <div style={{display:"flex", justifyContent: "center", width: "60%"}}>
+            <Swiper
+              onSwiper={(swiper) => (swiperRef.current = swiper)}
+              effect={'coverflow'}
+              grabCursor={false}
+              centeredSlides={true}
+              slidesPerView={'auto'}
+              spaceBetween={30}
+              loop={true}
+              onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+                
+              }}
+              initialSlide={1}
+              allowTouchMove={false}
+              coverflowEffect={{
+                rotate: 30,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true,
+              }}
+              pagination={true}
+              modules={[EffectCoverflow, Pagination, Autoplay]}
+              className="mySwiper"
+            >
+              
+            
+            {slides.map((info, index) => (
+              
+                <SwiperSlide
+                  onClick={goNextImage} 
+                  onMouseEnter={() => {
+                    if (activeIndex === index) {
+                      setIsHovered(true);
+                      console.log("Hovering over the slide");
+                    }
+                    
+                  }}
+                  onMouseLeave={() => {
+                    if (activeIndex === index) {
+                      setIsHovered(false);
+                      console.log("Left the slide");
+                    }
+                  }}
+                  className="custom_slide" 
+                  style={{
+                    backgroundImage: `url(${info.background})`,
+                    width: '15rem',
+                    height: '15rem',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    borderRadius: '10px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    position: 'relative',
+                    overflow: 'visible',
+                    zIndex: 1,
+                    }}
+                    key={index}>
+                  <span className="slide-title">{info.title}</span>
+                </SwiperSlide>
+             
+              
+            ))}
+            </Swiper>
+          </div>    
+        </div>
+        <div style={{display: "flex", justifyContent: "center", width: "100%"}}>
+              <button className="button_slider" onClick={() => swiperRef.current?.slidePrev()}>↢</button>
+              <button className="button_slider" onClick={() => swiperRef.current?.slideNext()}>↣</button>
+        </div>   
       
     </div>
 
