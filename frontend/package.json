@@ -10,11 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^7.0.2",
+    "@mui/x-charts": "^8.2.0",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.5.2",
+    "recharts": "^2.15.3",
     "swiper": "^11.2.6",
     "tailwindcss": "^4.1.4"
   },

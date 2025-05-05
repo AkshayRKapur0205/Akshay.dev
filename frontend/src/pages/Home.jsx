@@ -181,7 +181,7 @@ const Home = () => {
         setIsVisible(false);
       }
 
-      if (window.scrollY >= 1000) {
+      if (window.scrollY >= 1000 && window.scrollY <= 2000) {
         setIsBlufVisible(true);
       } else {
         setIsBlufVisible(false);
