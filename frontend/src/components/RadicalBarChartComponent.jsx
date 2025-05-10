@@ -1,5 +1,6 @@
 import React from 'react';
 import { RadialBarChart, RadialBar, Legend, Tooltip } from 'recharts';
+import CustomToolTip from "../components/CustomToolTip";
 
 // Sample data for Leetcode questions
 const data = [
@@ -33,7 +34,7 @@ const RadialBarChartComponent = () => {
         verticalAlign='middle' 
         align="right" 
       />
-      <Tooltip/>
+       <Tooltip content={<CustomToolTip />} />
     </RadialBarChart>
   );
 };

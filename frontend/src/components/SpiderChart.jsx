@@ -59,9 +59,9 @@ const CustomRadarChart = () => {
       <PolarGrid />
       <PolarAngleAxis dataKey="subject" />
       <PolarRadiusAxis angle={30} domain={[0, 110]} />
-      <Radar name="Professional" dataKey="A" strokeWidth={3} stroke="#FFD63A" fill="#FFD63A" fillOpacity={0} dot/>
-      <Radar name="Personal" dataKey="B" strokeWidth={3} stroke="#F75A5A" fill="#F75A5A" fillOpacity={0} dot/>
-      <Radar name="Academia" dataKey="C" strokeWidth={3} stroke="#6DE1D2" fill="#6DE1D2" fillOpacity={0} dot/>
+      <Radar name="Professional" dataKey="A" strokeWidth={3} stroke="#FFD63A" fill="#FFD63A" fillOpacity={0} dot animationDuration={3000}/>
+      <Radar name="Personal" dataKey="B" strokeWidth={3} stroke="#F75A5A" fill="#F75A5A" fillOpacity={0} dot animationDuration={5000}/>
+      <Radar name="Academia" dataKey="C" strokeWidth={3} stroke="#6DE1D2" fill="#6DE1D2" fillOpacity={0} dot animationDuration={2000}/>
       <Legend />
       <Tooltip content={<CustomToolTip />} />
     </RadarChart>

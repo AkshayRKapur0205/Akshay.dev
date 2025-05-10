@@ -1,0 +1,24 @@
+.flex-table-container {
+    height: 90rem; 
+    width: 55rem;
+    overflow: auto;
+    background-color: transparent;
+    color: white;
+    padding-top: 2rem;   
+    padding-left: 2rem;
+  }
+  
+  /* Table override styles */
+  .custom-ant-table .ant-table,
+  .custom-ant-table .ant-table-container,
+  .custom-ant-table .ant-table-thead > tr > th,
+  .custom-ant-table .ant-table-tbody > tr > td {
+    background-color: transparent !important;
+    color: white !important;
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .custom-ant-table .ant-table-tbody > tr:hover > td {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+  }
+  

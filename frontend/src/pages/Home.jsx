@@ -294,6 +294,7 @@ const goPrevImage = () => {
             className={`fade-in ${isVisible ? "visible" : ""}`}
             style={{ width: "5%", height: "5%", marginTop: "4%", marginLeft: "16%"}}
             />
+            
         </div>
         {/*Chat bot center*/}
         <div>
@@ -471,7 +472,7 @@ const goPrevImage = () => {
 
   
 
-      
+        
         <Skillset/>
       
     </div>
